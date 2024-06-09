@@ -17,7 +17,7 @@ module.exports = {
 
             return res.status(501).json({
                 success: false,
-                message: 'Hubo un error al crear la categoria',
+                message: 'Hubo un error al listar los Pedidos',
                 error: error
             });
         }
