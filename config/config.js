@@ -15,7 +15,7 @@ const databaseConfig = {
     'host': 'dpg-cpifr3a1hbls73bh03c0-a',
     'port': 5432,
     'database': 'datapapelera',
-    'user': 'papel',
+    'user': 'papelera',
     'password': 'dgX0RNeii972PzTR20s2iHoqQPG68LA2'
 };
 
