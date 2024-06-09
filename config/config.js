@@ -1,22 +1,22 @@
-const promise = require('bluebird');
+const promise = require("bluebird");
 const options = {
-    promiseLib: promise,
-    query: (e) => {}
-}
+  promiseLib: promise,
+  query: (e) => {},
+};
 
-const pgp = require('pg-promise')(options);
+const pgp = require("pg-promise")(options);
 const types = pgp.pg.types;
-types.setTypeParser(1114, function(stringValue) {
-    return stringValue;
+types.setTypeParser(1114, function (stringValue) {
+  return stringValue;
 });
 //LOCAL
 
 const databaseConfig = {
-    'host': 'dpg-cpifr3a1hbls73bh03c0-a',
-    'port': 5432,
-    'database': 'datapapelera',
-    'user': 'papelera',
-    'password': 'dgX0RNeii972PzTR20s2iHoqQPG68LA2'
+  host: "dpg-cpifr3a1hbls73bh03c0-a",
+  port: 5432,
+  database: "datapapelera",
+  user: "papelera",
+  password: "dgX0RNeii972PzTR20s2iHoqQPG68LA2",
 };
 
 //PRODUCCION
