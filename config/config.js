@@ -14,7 +14,7 @@ types.setTypeParser(1114, function (stringValue) {
 const databaseConfig = {
   host: "dpg-cq9vpv2ju9rs73bble3g-a",
   port: 5432,
-  database: "datapapelera_c5ew",
+  database: "papelera",
   user: "datapapelera_c5ew_user",
   password: "J1Xe0kQokDqeVcbummpyVgcwqNXVTBSV",
 };
