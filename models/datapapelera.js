@@ -6,7 +6,7 @@ Datapapelera.getAll = () => {
   const sql = `
     SELECT
         id,
-
+        Codigo,
         OT,
         OTS,
         Cliente,

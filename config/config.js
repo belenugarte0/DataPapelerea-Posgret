@@ -12,11 +12,11 @@ types.setTypeParser(1114, function (stringValue) {
 //LOCAL
 
 const databaseConfig = {
-  host: "dpg-cpifr3a1hbls73bh03c0-a",
+  host: "dpg-cq9vpv2ju9rs73bble3g-a",
   port: 5432,
-  database: "datapapelera",
-  user: "papelera",
-  password: "dgX0RNeii972PzTR20s2iHoqQPG68LA2",
+  database: "datapapelera_c5ew",
+  user: "datapapelera_c5ew_user",
+  password: "J1Xe0kQokDqeVcbummpyVgcwqNXVTBSV",
 };
 
 //PRODUCCION
