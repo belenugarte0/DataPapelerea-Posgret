@@ -2,7 +2,7 @@ const db = require("../config/config");
 
 const Datapapelera = {};
 
-Datapapelera.getAll = (limit = 10, offset = 0) => {
+Datapapelera.getAll = () => {
   const sql = `
     SELECT
         id,
@@ -24,12 +24,9 @@ Datapapelera.getAll = (limit = 10, offset = 0) => {
         estado
     FROM
         pedidos
-    ORDER BY
-        Fecha_de_entrega DESC
-    LIMIT $1 OFFSET $2
-  `;
+    `;
 
-  return db.manyOrNone(sql, [limit, offset]);
+  return db.manyOrNone(sql);
 };
 
 module.exports = Datapapelera;

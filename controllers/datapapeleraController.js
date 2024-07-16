@@ -2,11 +2,8 @@ const Datapapelera = require("../models/datapapelera");
 
 module.exports = {
   async getAll(req, res, next) {
-    const limit = parseInt(req.query.limit, 10) || 10;
-    const offset = parseInt(req.query.offset, 10) || 0;
-
     try {
-      const data = await Datapapelera.getAll(limit, offset);
+      const data = await Datapapelera.getAll();
 
       const response = {
         orders: data,
