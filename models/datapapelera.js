@@ -20,7 +20,8 @@ Datapapelera.getAll = () => {
         Ancho_Interno,
         Alto_Interno,
         Calidad,
-        Tipo_de_Caja
+        Tipo_de_Caja,
+        estado
     FROM
         pedidos
     `;
