@@ -16,6 +16,8 @@ Order.getAll = (limit, offset) => {
         Ancho_Interno,
         Calidad,
         Tipo_de_Caja,
+        zona,
+		    coordenadas,
         estado
     FROM
         pedidos
