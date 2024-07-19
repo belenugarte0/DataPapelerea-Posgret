@@ -2,7 +2,7 @@ const db = require("../config/config");
 
 const Order = {};
 
-Order.getAll = () => {
+Order.getAll = (limit, offset) => {
   const sql = `
     SELECT
         id,
@@ -19,9 +19,12 @@ Order.getAll = () => {
         estado
     FROM
         pedidos
-    `;
+    ORDER BY
+        id
+    LIMIT $1 OFFSET $2
+  `;
 
-  return db.manyOrNone(sql);
+  return db.manyOrNone(sql, [limit, offset]);
 };
 
 Order.update = (order) => {
@@ -32,8 +35,9 @@ Order.update = (order) => {
         estado = $2
     WHERE
         id = $1
- `;
+  `;
 
   return db.none(sql, [order.id, order.status]);
 };
+
 module.exports = Order;
