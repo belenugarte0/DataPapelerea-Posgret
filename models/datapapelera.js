@@ -1,24 +1,19 @@
 const db = require("../config/config");
 
-const Datapapelera = {};
+const Order = {};
 
-Datapapelera.getAll = () => {
+Order.getAll = () => {
   const sql = `
     SELECT
         id,
         Codigo,
-        OT,
-        OTS,
         Cliente,
         Producto,
-        Fecha_Carguio,
         Fecha_de_entrega,
         Cantidad_Requerida,
-        Fecha_Produccion,
         Colores,
         Largo_Interno,
         Ancho_Interno,
-        Alto_Interno,
         Calidad,
         Tipo_de_Caja,
         estado
@@ -29,4 +24,16 @@ Datapapelera.getAll = () => {
   return db.manyOrNone(sql);
 };
 
-module.exports = Datapapelera;
+Order.update = (order) => {
+  const sql = `
+    UPDATE
+        pedidos
+    SET
+        estado = $2
+    WHERE
+        id = $1
+ `;
+
+  return db.none(sql, [order.id, order.status]);
+};
+module.exports = Order;

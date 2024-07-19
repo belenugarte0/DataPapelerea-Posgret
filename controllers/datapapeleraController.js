@@ -1,9 +1,9 @@
-const Datapapelera = require("../models/datapapelera");
+const Order = require("../models/datapapelera");
 
 module.exports = {
   async getAll(req, res, next) {
     try {
-      const data = await Datapapelera.getAll();
+      const data = await Order.getAll();
 
       const response = {
         orders: data,
@@ -16,6 +16,120 @@ module.exports = {
         success: false,
         message: "Hubo un error al listar los Pedidos",
         error: error.message,
+      });
+    }
+  },
+  async updateToRecibido(req, res, next) {
+    try {
+      let order = req.body;
+      order.status = "Recibido";
+      await Order.update(order);
+
+      return res.status(201).json({
+        success: true,
+        message: "La orden se actualizó a Recibido correctamente",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando la orden a Recibido",
+        error: error,
+      });
+    }
+  },
+  async updateToDiseño(req, res, next) {
+    try {
+      let order = req.body;
+      order.status = "Diseño";
+      await Order.update(order);
+
+      return res.status(201).json({
+        success: true,
+        message: "La orden se actualizó a Diseño correctamente",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando la orden a Diseño",
+        error: error,
+      });
+    }
+  },
+  async updateToCompletadoMerma(req, res, next) {
+    try {
+      let order = req.body;
+      order.status = "Completado Merma";
+      await Order.update(order);
+
+      return res.status(201).json({
+        success: true,
+        message: "La orden se actualizó a Completado Merma correctamente",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando la orden a Completado Merma",
+        error: error,
+      });
+    }
+  },
+  async updateToAlmacen(req, res, next) {
+    try {
+      let order = req.body;
+      order.status = "Almacen";
+      await Order.update(order);
+
+      return res.status(201).json({
+        success: true,
+        message: "La orden se actualizó a Almacen correctamente",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando la orden a Almacen",
+        error: error,
+      });
+    }
+  },
+  async updateToDespacho(req, res, next) {
+    try {
+      let order = req.body;
+      order.status = "Despacho";
+      await Order.update(order);
+
+      return res.status(201).json({
+        success: true,
+        message: "La orden se actualizó a Despacho correctamente",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando la orden a Despacho",
+        error: error,
+      });
+    }
+  },
+  async updateToCompletadoLogistica(req, res, next) {
+    try {
+      let order = req.body;
+      order.status = "Completado Logistica";
+      await Order.update(order);
+
+      return res.status(201).json({
+        success: true,
+        message: "La orden se actualizó a Completado Logistica correctamente",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando la orden a Completado Logistica",
+        error: error,
       });
     }
   },
