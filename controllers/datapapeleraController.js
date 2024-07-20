@@ -21,9 +21,9 @@ module.exports = {
   },
   async updateToRecibido(req, res, next) {
     try {
-      const id = req.params.id; // Obtener el ID de la URL
-      const order = { id, status: "Recibido" }; // Crear el objeto de la orden con el nuevo estado
-      await Order.update(order); // Actualizar la orden
+      const id = req.params.id;
+      const order = { id, status: "Recibido" };
+      await Order.update(order);
 
       return res.status(201).json({
         success: true,
@@ -40,8 +40,8 @@ module.exports = {
   },
   async updateToDiseño(req, res, next) {
     try {
-      let order = req.body;
-      order.status = "Diseño";
+      const id = req.params.id;
+      const order = { id, status: "Diseño" };
       await Order.update(order);
 
       return res.status(201).json({
@@ -78,8 +78,8 @@ module.exports = {
   },
   async updateToAlmacen(req, res, next) {
     try {
-      let order = req.body;
-      order.status = "Almacen";
+      const id = req.params.id;
+      const order = { id, status: "Almacen" };
       await Order.update(order);
 
       return res.status(201).json({
@@ -97,8 +97,8 @@ module.exports = {
   },
   async updateToDespacho(req, res, next) {
     try {
-      let order = req.body;
-      order.status = "Despacho";
+      const id = req.params.id;
+      const order = { id, status: "Despacho" };
       await Order.update(order);
 
       return res.status(201).json({
@@ -116,8 +116,8 @@ module.exports = {
   },
   async updateToCompletadoLogistica(req, res, next) {
     try {
-      let order = req.body;
-      order.status = "Completado Logistica";
+      const id = req.params.id;
+      const order = { id, status: "Completado Logistica" };
       await Order.update(order);
 
       return res.status(201).json({
