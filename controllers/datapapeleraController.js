@@ -21,9 +21,9 @@ module.exports = {
   },
   async updateToRecibido(req, res, next) {
     try {
-      let order = req.body;
-      order.status = "Recibido";
-      await Order.update(order);
+      const id = req.params.id; // Obtener el ID de la URL
+      const order = { id, status: "Recibido" }; // Crear el objeto de la orden con el nuevo estado
+      await Order.update(order); // Actualizar la orden
 
       return res.status(201).json({
         success: true,
