@@ -1,34 +1,36 @@
 const DatapapeleraController = require("../controllers/datapapeleraController");
-const passport = require("passport");
 
 module.exports = (app, upload) => {
   // TRAER DATOS
   app.get("/api/datapapelera/getAll", DatapapeleraController.getAll);
 
   app.put(
-    "/api/datapapelera/updateToRecibido",
+    "/api/datapapelera/updateToRecibido/:id",
     DatapapeleraController.updateToRecibido
   );
 
   app.put(
-    "/api/datapapelera/updateToDiseño",
+    "/api/datapapelera/updateToDiseño/:id",
     DatapapeleraController.updateToDiseño
   );
 
   app.put(
-    "/api/datapapelera/updateToCompletadoMerma",
+    "/api/datapapelera/updateToCompletadoMerma/:id",
     DatapapeleraController.updateToCompletadoMerma
   );
+
   app.put(
-    "/api/datapapelera/updateToAlmacen",
+    "/api/datapapelera/updateToAlmacen/:id",
     DatapapeleraController.updateToAlmacen
   );
+
   app.put(
-    "/api/datapapelera/updateToDespacho",
+    "/api/datapapelera/updateToDespacho/:id",
     DatapapeleraController.updateToDespacho
   );
+
   app.put(
-    "/api/datapapelera/updateToCompletadoLogistica",
+    "/api/datapapelera/updateToCompletadoLogistica/:id",
     DatapapeleraController.updateToCompletadoLogistica
   );
 };
