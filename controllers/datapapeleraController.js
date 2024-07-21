@@ -22,12 +22,12 @@ module.exports = {
   async updateToRecibido(req, res, next) {
     try {
       const id = req.params.id;
-      const order = { id, status: "Recibido" };
+      const order = { id, status: "Diseño" };
       await Order.update(order);
 
       return res.status(201).json({
         success: true,
-        message: "La orden se actualizó a Recibido correctamente",
+        message: "La orden se actualizó a Diseño correctamente",
       });
     } catch (error) {
       console.log(`Error ${error}`);
@@ -41,12 +41,12 @@ module.exports = {
   async updateToDiseño(req, res, next) {
     try {
       const id = req.params.id;
-      const order = { id, status: "Diseño" };
+      const order = { id, status: "Completado Merma" };
       await Order.update(order);
 
       return res.status(201).json({
         success: true,
-        message: "La orden se actualizó a Diseño correctamente",
+        message: "La orden se actualizó a Completado Merma correctamente",
       });
     } catch (error) {
       console.log(`Error ${error}`);
@@ -60,12 +60,12 @@ module.exports = {
   async updateToCompletadoMerma(req, res, next) {
     try {
       let order = req.body;
-      order.status = "Completado Merma";
+      order.status = "Almacen";
       await Order.update(order);
 
       return res.status(201).json({
         success: true,
-        message: "La orden se actualizó a Completado Merma correctamente",
+        message: "La orden se actualizó a Almacen correctamente",
       });
     } catch (error) {
       console.log(`Error ${error}`);
@@ -79,12 +79,12 @@ module.exports = {
   async updateToAlmacen(req, res, next) {
     try {
       const id = req.params.id;
-      const order = { id, status: "Almacen" };
+      const order = { id, status: "Despacho" };
       await Order.update(order);
 
       return res.status(201).json({
         success: true,
-        message: "La orden se actualizó a Almacen correctamente",
+        message: "La orden se actualizó a Despacho correctamente",
       });
     } catch (error) {
       console.log(`Error ${error}`);
@@ -98,12 +98,12 @@ module.exports = {
   async updateToDespacho(req, res, next) {
     try {
       const id = req.params.id;
-      const order = { id, status: "Despacho" };
+      const order = { id, status: "Completado Logistica" };
       await Order.update(order);
 
       return res.status(201).json({
         success: true,
-        message: "La orden se actualizó a Despacho correctamente",
+        message: "La orden se actualizó a Completado Logistica correctamente",
       });
     } catch (error) {
       console.log(`Error ${error}`);
