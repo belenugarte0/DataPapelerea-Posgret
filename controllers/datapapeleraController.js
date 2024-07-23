@@ -3,7 +3,7 @@ const Order = require("../models/datapapelera");
 module.exports = {
   async getAll(req, res, next) {
     try {
-      const data = await Order.getAll(req.query.limit, req.query.offset);
+      const data = await Order.getAll();
 
       const response = {
         orders: data,
