@@ -2,7 +2,7 @@ const db = require("../config/config");
 
 const Order = {};
 
-Order.getAll = (estado) => {
+Order.getAll = (status) => {
   const sql = `
     SELECT
         id,
@@ -19,12 +19,12 @@ Order.getAll = (estado) => {
         estado
     FROM
         pedidos
-    WHERE  estado = $2
+    WHERE  estado = $1
     ORDER BY
         id
   `;
 
-  return db.manyOrNone(sql, [estado]);
+  return db.manyOrNone(sql, status);
 };
 
 Order.update = (order) => {
