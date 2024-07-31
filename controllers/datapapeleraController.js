@@ -3,7 +3,8 @@ const Order = require("../models/datapapelera");
 module.exports = {
   async getAll(req, res, next) {
     try {
-      const data = await Order.getAll();
+      const estado = req.query.estado; 
+      const data = await Order.getAll(estado);
 
       const response = {
         orders: data,
@@ -19,6 +20,7 @@ module.exports = {
       });
     }
   },
+
   async updateToRecibido(req, res, next) {
     try {
       const id = req.params.id;
