@@ -24,7 +24,6 @@ module.exports = {
     try {
       const id = req.params.id;
       const status = req.params.status;
-      console.log(`Actualizando orden ${id} a estado ${status}`);
       await Order.update({ id, status });
       return res.status(201).json({
         success: true,
