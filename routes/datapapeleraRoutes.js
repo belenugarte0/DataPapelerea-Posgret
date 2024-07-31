@@ -2,7 +2,7 @@ const DatapapeleraController = require("../controllers/datapapeleraController");
 
 module.exports = (app, upload) => {
   // TRAER DATOS
-  app.get("/api/datapapelera/getAll", DatapapeleraController.getAll);
+  app.get("/api/datapapelera/getAll/:status", DatapapeleraController.getAll);
 
   app.put(
     "/api/datapapelera/updateToRecibido/:id",
