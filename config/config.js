@@ -12,20 +12,20 @@ types.setTypeParser(1114, function (stringValue) {
 //LOCAL
 
 const databaseConfig = {
+  host: "127.0.0.1",
+  port: 5432,
+  database: "bdpapelera",
+  user: "postgres",
+  password: "lsmSantMont76",
+};
+
+//PRODUCCION
+/*const databaseConfig = {
   host: "dpg-cq9vpv2ju9rs73bble3g-a",
   port: 5432,
   database: "datapapelera_c5ew",
   user: "datapapelera_c5ew_user",
   password: "J1Xe0kQokDqeVcbummpyVgcwqNXVTBSV",
-};
-
-//PRODUCCION
-/*const databaseConfig = {
-    'host': 'bdlogistica.ch242muoknlx.us-east-2.rds.amazonaws.com',
-    'port': 5432,
-    'database': 'bdlogistica',
-    'user': 'postgres',
-    'password': 'lsmSantander76'
 };*/
 
 const db = pgp(databaseConfig);

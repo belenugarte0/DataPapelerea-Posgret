@@ -57,11 +57,16 @@ app.set('port', port);
 categories(app, upload);
 
 
-
+//PRODUCCION
+/*
 server.listen(port, function() {
     console.log('Aplicacion de NodeJS ' + port + ' Iniciada...')
-});
+});*/
 
+//LOCAL
+server.listen(3000, '192.168.1.10' || 'localhost', function() {
+    console.log('Aplicacion de NodeJS ' + port + ' Iniciada...')
+});
 
 // ERROR HANDLER
 app.use((err, req, res, next) => {
