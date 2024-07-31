@@ -36,8 +36,10 @@ Order.update = (order) => {
     WHERE
         id = $1
   `;
-
-  return db.none(sql, [order.id, order.status]);
+  return db.none(sql, [
+    order.id,
+    order.status
+]);
 };
 
 module.exports = Order;
