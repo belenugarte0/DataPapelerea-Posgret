@@ -22,7 +22,7 @@ module.exports = {
   },
   async getPedidosRecientes(req, res, next) {
     try {
-      const data = await Order.getAll();
+      const data = await Order.getPedidosRecientes();
       const response = {
         orders: data,
       };
