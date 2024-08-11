@@ -27,7 +27,7 @@ module.exports = {
       await Order.update({ id, status });
       return res.status(201).json({
         success: true,
-        message: "La orden se actualizó a Diseño correctamente",
+        message: "LA ORDEN SE ACTUALIZÓ CORRECTAMENTE",
       });
     } catch (error) {
       console.log(`Error ${error}`);
@@ -37,5 +37,5 @@ module.exports = {
         error: error,
       });
     }
-  }  
+  },
 };
