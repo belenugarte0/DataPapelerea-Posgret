@@ -27,6 +27,14 @@ Order.getAll = (status) => {
   return db.manyOrNone(sql, status);
 };
 
+Order.getPedidosRecientes = () => {
+  const sql = `
+SELECT * FROM obtener_pedidos_recientes();
+  `;
+
+  return db.manyOrNone(sql);
+};
+
 Order.update = (order) => {
   const sql = `
     UPDATE
@@ -36,10 +44,7 @@ Order.update = (order) => {
     WHERE
         id = $1
   `;
-  return db.none(sql, [
-    order.id,
-    order.status
-]);
+  return db.none(sql, [order.id, order.status]);
 };
 
 module.exports = Order;

@@ -1,0 +1,50 @@
+-- DROP FUNCTION IF EXISTS obtener_pedidos_recientes();
+
+CREATE OR REPLACE FUNCTION obtener_pedidos_recientes()
+RETURNS TABLE (
+	id INTEGER,
+    codigo TEXT,
+    producto TEXT,
+    cliente TEXT,
+    largo_interno TEXT,
+    ancho_interno TEXT,
+    zona TEXT,
+    coordenadas TEXT,
+	fecha_de_entrega DATE
+
+) AS $$
+BEGIN
+    RETURN QUERY
+    WITH pedidos_ordenados AS (
+        SELECT 
+		    p.id,
+            p.codigo::text,
+            p.producto::text,
+            p.cliente::text,
+            p.largo_interno::text,
+            p.ancho_interno::text,
+            p.zona::text,
+            p.coordenadas::text,
+		    TO_DATE(p.fecha_de_entrega, 'DD/MM/YYYY') AS fecha_de_entrega,
+            ROW_NUMBER() OVER(PARTITION BY p.codigo ORDER BY TO_DATE(p.fecha_de_entrega, 'DD/MM/YYYY') DESC) AS fila
+        FROM 
+            public.pedidos p
+        WHERE 
+            p.estado = 'Despacho'
+    )
+    SELECT 
+	    po.id,
+        po.codigo, 
+        po.producto, 
+        po.cliente,
+        po.largo_interno,
+        po.ancho_interno,
+        po.zona,
+        po.coordenadas,
+		po.fecha_de_entrega
+    FROM 
+        pedidos_ordenados po
+    WHERE 
+        po.fila = 1;
+END;
+$$ LANGUAGE plpgsql;
