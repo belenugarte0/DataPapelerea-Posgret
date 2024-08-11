@@ -24,7 +24,7 @@ module.exports = {
     try {
       const data = await Order.getPedidosRecientes();
       const response = {
-        orders: data,
+        routePlannings: data,
       };
 
       return res.status(200).json(response);
