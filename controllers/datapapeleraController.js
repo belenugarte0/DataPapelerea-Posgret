@@ -42,8 +42,8 @@ module.exports = {
 
   async getPedidosRecientes(req, res, next) {
     try {
+      const zona = req.params.zona;
       const data = await Order.getPedidosRecientes(zona);
-
       const response = {
         routePlannings: data,
       };
