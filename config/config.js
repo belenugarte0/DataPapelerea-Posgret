@@ -21,11 +21,11 @@ const databaseConfig = {
 
 //PRODUCCION
 const databaseConfig = {
-  host: "dpg-cq9vpv2ju9rs73bble3g-a",
+  host: "dpg-cqtr213v2p9s73ad5jc0-a",
   port: 5432,
-  database: "datapapelera_c5ew",
-  user: "datapapelera_c5ew_user",
-  password: "J1Xe0kQokDqeVcbummpyVgcwqNXVTBSV",
+  database: "datapapelera_n0ff",
+  user: "datapapelera_n0ff_user",
+  password: "peVsQzwmff8Xg6sn5J8Vrk2wWfIS29sX",
 };
 
 const db = pgp(databaseConfig);
