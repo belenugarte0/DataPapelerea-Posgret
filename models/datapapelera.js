@@ -49,7 +49,7 @@ Order.getPedidosRecientes = (zona) => {
 
 Order.getZonas = () => {
   const sql = `
-    SELECT * FROM listar_zonas();
+    SELECT * FROM listar_zonas($1);
   `;
 
   return db.manyOrNone(sql);
