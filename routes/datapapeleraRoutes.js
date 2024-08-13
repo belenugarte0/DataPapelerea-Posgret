@@ -9,6 +9,8 @@ module.exports = (app) => {
     DatapapeleraController.getPedidosRecientes
   );
 
+  app.get("/api/datapapelera/getZonas", DatapapeleraController.getZonas);
+
   app.put(
     "/api/datapapelera/updateToStatus/:id/:status",
     DatapapeleraController.updateToStatus

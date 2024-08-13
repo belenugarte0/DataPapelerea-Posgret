@@ -1,0 +1,29 @@
+-- DROP FUNCTION IF EXISTS listar_zonas();
+
+CREATE OR REPLACE FUNCTION listar_zonas()
+RETURNS TABLE(
+    zona_normalizada TEXT,
+    total_pedidos BIGINT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        UPPER(TRIM(
+            CASE 
+                WHEN POSITION(',' IN zona) > 0 THEN SUBSTRING(zona FROM 1 FOR POSITION(',' IN zona) - 1)
+                ELSE zona
+            END
+        )) AS zona_normalizada,
+        COUNT(*) AS total_pedidos
+    FROM public.pedidos
+    WHERE zona IS NOT NULL
+    GROUP BY UPPER(TRIM(
+            CASE 
+                WHEN POSITION(',' IN zona) > 0 THEN SUBSTRING(zona FROM 1 FOR POSITION(',' IN zona) - 1)
+                ELSE zona
+            END
+        ))
+    ORDER BY total_pedidos DESC;
+END;
+$$ LANGUAGE plpgsql;
+

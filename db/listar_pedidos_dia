@@ -1,6 +1,6 @@
--- DROP FUNCTION IF EXISTS obtener_pedidos_recientes();
+-- DROP FUNCTION IF EXISTS listar_pedidos_dia();
 
-CREATE OR REPLACE FUNCTION obtener_pedidos_recientes()
+CREATE OR REPLACE FUNCTION listar_pedidos_dia()
 RETURNS TABLE (
 	id INTEGER,
     codigo TEXT,

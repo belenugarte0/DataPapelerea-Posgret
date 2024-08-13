@@ -27,24 +27,32 @@ Order.getAll = (status) => {
   return db.manyOrNone(sql, status);
 };
 
+Order.update = (order) => {
+  const sql = `
+  UPDATE
+  pedidos
+  SET
+  estado = $2
+  WHERE
+  id = $1
+  `;
+  return db.none(sql, [order.id, order.status]);
+};
+
 Order.getPedidosRecientes = () => {
   const sql = `
-SELECT * FROM obtener_pedidos_recientes();
+    SELECT * FROM listar_pedidos_dia();
   `;
 
   return db.manyOrNone(sql);
 };
 
-Order.update = (order) => {
+Order.getZonas = () => {
   const sql = `
-    UPDATE
-        pedidos
-    SET
-        estado = $2
-    WHERE
-        id = $1
+    SELECT * FROM listar_zonas();
   `;
-  return db.none(sql, [order.id, order.status]);
+
+  return db.manyOrNone(sql);
 };
 
 module.exports = Order;
