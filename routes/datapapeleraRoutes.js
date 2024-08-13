@@ -5,7 +5,7 @@ module.exports = (app) => {
   app.get("/api/datapapelera/getAll/:status", DatapapeleraController.getAll);
 
   app.get(
-    "/api/datapapelera/getPedidosRecientes",
+    "/api/datapapelera/getPedidosRecientes/:zona",
     DatapapeleraController.getPedidosRecientes
   );
 

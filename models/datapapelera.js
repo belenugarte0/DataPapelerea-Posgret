@@ -39,12 +39,12 @@ Order.update = (order) => {
   return db.none(sql, [order.id, order.status]);
 };
 
-Order.getPedidosRecientes = () => {
+Order.getPedidosRecientes = (zona) => {
   const sql = `
     SELECT * FROM listar_pedidos_dia();
   `;
 
-  return db.manyOrNone(sql);
+  return db.manyOrNone(sql, zona);
 };
 
 Order.getZonas = () => {
