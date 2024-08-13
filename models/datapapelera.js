@@ -41,7 +41,7 @@ Order.update = (order) => {
 
 Order.getPedidosRecientes = (zona) => {
   const sql = `
-    SELECT * FROM listar_pedidos_dia();
+    SELECT * FROM listar_pedidos_dia($1);
   `;
 
   return db.manyOrNone(sql, zona);
@@ -49,7 +49,7 @@ Order.getPedidosRecientes = (zona) => {
 
 Order.getZonas = () => {
   const sql = `
-    SELECT * FROM listar_zonas($1);
+    SELECT * FROM listar_zonas();
   `;
 
   return db.manyOrNone(sql);
