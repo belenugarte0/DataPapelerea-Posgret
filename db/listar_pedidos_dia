@@ -1,17 +1,14 @@
 -- DROP FUNCTION IF EXISTS listar_pedidos_dia(p_zona);
 
-CREATE OR REPLACE FUNCTION listar_pedidos_dia(p_zona TEXT)
-RETURNS TABLE (
-    id INTEGER,
-    codigo TEXT,
-    producto TEXT,
-    cliente TEXT,
-    largo_interno TEXT,
-    ancho_interno TEXT,
-    zona TEXT,
-    coordenadas TEXT,
-    fecha_de_entrega DATE
-) AS $$
+CREATE OR REPLACE FUNCTION public.listar_pedidos_dia(
+    p_zonas text[])
+    RETURNS TABLE(id integer, codigo text, producto text, cliente text, largo_interno text, ancho_interno text, zona text, coordenadas text, fecha_de_entrega date) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
 BEGIN
     RETURN QUERY
     WITH pedidos_ordenados AS (
@@ -30,7 +27,11 @@ BEGIN
             public.pedidos p
         WHERE 
             p.estado = 'Despacho'
-            AND (p_zona IS NULL OR p.zona ILIKE '%' || p_zona || '%')
+            AND (p_zonas IS NULL OR EXISTS (
+                SELECT 1
+                FROM unnest(p_zonas) AS zona_filtro
+                WHERE p.zona ILIKE '%' || zona_filtro || '%'
+            ))
     )
     SELECT 
         po.id,
@@ -47,4 +48,4 @@ BEGIN
     WHERE 
         po.fila = 1;
 END;
-$$ LANGUAGE plpgsql;
+$BODY$;
