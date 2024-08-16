@@ -42,12 +42,14 @@ module.exports = {
 
   async getPedidosRecientes(req, res, next) {
     try {
-      const zona = req.params.zona;
-      const data = await Order.getPedidosRecientes(zona);
+      const zonasParam = req.params.zona;
+      const zonasArray = zonasParam.split(','); 
+      
+      const data = await Order.getPedidosRecientes(zonasArray);
       const response = {
         routePlannings: data,
       };
-
+  
       return res.status(200).json(response);
     } catch (error) {
       console.error("Error:", error);
@@ -57,7 +59,7 @@ module.exports = {
         error: error.message,
       });
     }
-  },
+  },  
 
   async getZonas(req, res, next) {
     try {

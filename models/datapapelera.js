@@ -44,7 +44,7 @@ Order.getPedidosRecientes = (zona) => {
     SELECT * FROM listar_pedidos_dia($1);
   `;
 
-  return db.manyOrNone(sql, zona);
+  return db.manyOrNone(sql, [zonas]); 
 };
 
 Order.getZonas = () => {
