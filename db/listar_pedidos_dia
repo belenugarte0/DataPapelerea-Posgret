@@ -1,17 +1,21 @@
--- DROP FUNCTION IF EXISTS listar_pedidos_dia(p_zona);
+-- DROP FUNCTION IF EXISTS listar_pedidos_dia(p_zonas text[]);
 
-CREATE OR REPLACE FUNCTION public.listar_pedidos_dia(
-    p_zonas text[])
+CREATE OR REPLACE FUNCTION public.listar_pedidos_dia(p_zonas text[])
     RETURNS TABLE(id integer, codigo text, producto text, cliente text, largo_interno text, ancho_interno text, zona text, coordenadas text, fecha_de_entrega date) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE PARALLEL UNSAFE
     ROWS 1000
-
 AS $BODY$
 BEGIN
     RETURN QUERY
-    WITH pedidos_ordenados AS (
+    WITH zonas_ordenadas AS (
+        SELECT 
+            zona_filtro,
+            ROW_NUMBER() OVER (ORDER BY ARRAY_POSITION(p_zonas, zona_filtro)) AS orden_zona
+        FROM unnest(p_zonas) AS zona_filtro
+    ),
+    pedidos_ordenados AS (
         SELECT 
             p.id,
             p.codigo::text,
@@ -22,16 +26,14 @@ BEGIN
             p.zona::text,
             p.coordenadas::text,
             TO_DATE(p.fecha_de_entrega, 'DD/MM/YYYY') AS fecha_de_entrega,
-            ROW_NUMBER() OVER(PARTITION BY p.codigo ORDER BY TO_DATE(p.fecha_de_entrega, 'DD/MM/YYYY') DESC) AS fila
+            ROW_NUMBER() OVER(PARTITION BY p.codigo ORDER BY TO_DATE(p.fecha_de_entrega, 'DD/MM/YYYY') DESC) AS fila,
+            COALESCE(z.orden_zona, 999) AS orden_zona
         FROM 
             public.pedidos p
+        LEFT JOIN zonas_ordenadas z ON p.zona ILIKE '%' || z.zona_filtro || '%'
         WHERE 
             p.estado = 'Despacho'
-            AND (p_zonas IS NULL OR EXISTS (
-                SELECT 1
-                FROM unnest(p_zonas) AS zona_filtro
-                WHERE p.zona ILIKE '%' || zona_filtro || '%'
-            ))
+            AND (p_zonas IS NULL OR z.zona_filtro IS NOT NULL)
     )
     SELECT 
         po.id,
@@ -46,6 +48,9 @@ BEGIN
     FROM 
         pedidos_ordenados po
     WHERE 
-        po.fila = 1;
+        po.fila = 1
+    ORDER BY 
+        po.orden_zona, 
+        po.fecha_de_entrega DESC;
 END;
 $BODY$;
