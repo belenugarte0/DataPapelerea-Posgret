@@ -11,6 +11,8 @@ module.exports = (app) => {
 
   app.get("/api/datapapelera/getZonas", DatapapeleraController.getZonas);
 
+  app.get("/api/datapapelera/validateCodigo/:codigo", DatapapeleraController.getAll);
+
   app.put(
     "/api/datapapelera/updateToStatus/:id/:status",
     DatapapeleraController.updateToStatus

@@ -55,4 +55,19 @@ Order.getZonas = () => {
   return db.manyOrNone(sql);
 };
 
+
+
+Order.validateCod  = (codigo) => {
+  const sql = `
+    SELECT 
+      COUNT(*) > 0 AS exists 
+    FROM 
+      pedidos 
+    WHERE 
+      Codigo = $1;
+  `;
+
+  return db.manyOrNone(sql, codigo);
+};
+
 module.exports = Order;
