@@ -81,19 +81,12 @@ module.exports = {
   async validateCodigo(req, res, next) {
     try {
       const codigo = req.params.codigo;
-      const exists = await Order.validateCod(codigo);
-
-      if (exists) {
-        return res.status(200).json({
-          success: true,
-          message: "El código ya existe.",
-        });
-      } else {
-        return res.status(200).json({
-          success: true,
-          message: "El código es válido y no está en uso.",
-        });
-      }
+      const result = await Order.validateCodigo(codigo);
+      
+      return res.status(200).json({
+        success: true,
+        exists: result.exists,
+      });
     } catch (error) {
       console.error("Error:", error);
       return res.status(500).json({
@@ -102,5 +95,6 @@ module.exports = {
         error: error.message,
       });
     }
-  },
+  }
+  
 };

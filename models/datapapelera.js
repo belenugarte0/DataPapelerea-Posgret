@@ -55,9 +55,7 @@ Order.getZonas = () => {
   return db.manyOrNone(sql);
 };
 
-
-
-Order.validateCod  = (codigo) => {
+Order.validateCodigo  = (codigo) => {
   const sql = `
     SELECT 
       COUNT(*) > 0 AS exists 
@@ -67,7 +65,7 @@ Order.validateCod  = (codigo) => {
       Codigo = $1;
   `;
 
-  return db.manyOrNone(sql, codigo);
+  return db.oneOrNone(sql, codigo);
 };
 
 module.exports = Order;
