@@ -68,10 +68,9 @@ Order.validateCodigo  = (codigo) => {
   return db.oneOrNone(sql, codigo);
 };
 
-
-Order.findByStatus = (status) => {
+Order.findByStatus = (status, limit, offset) => {
   const sql = `
-   SELECT
+    SELECT
         id,
         Codigo,
         Cliente,
@@ -89,9 +88,11 @@ Order.findByStatus = (status) => {
     WHERE  estado = $1
     ORDER BY
         id
-    `;
-
-  return db.manyOrNone(sql, status);
+    LIMIT $2 OFFSET $3
+  `;
+  
+  return db.manyOrNone(sql, [status, limit, offset]);
 };
+
 
 module.exports = Order;
