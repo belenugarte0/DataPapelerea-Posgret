@@ -15,4 +15,8 @@ module.exports = (app) => {
     "/api/datapapelera/updateToStatus/:id/:status",
     DatapapeleraController.updateToStatus
   );
+  app.put(
+    "/api/datapapelera/updatePlanning/:id",
+    DatapapeleraController.updatePlanning
+  );
 };

@@ -55,4 +55,16 @@ Order.getZonas = () => {
   return db.manyOrNone(sql);
 };
 
+Order.updatePlanning = (id) => {
+  const sql = `
+  UPDATE
+  pedidos
+  SET
+  estado = 'Despacho'
+  WHERE
+  id = ANY($1::int[])
+  `;
+  return db.none(sql, [id]);
+};
+
 module.exports = Order;
