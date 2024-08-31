@@ -82,7 +82,7 @@ module.exports = {
     try {
       const codigo = req.params.codigo;
       const result = await Order.validateCodigo(codigo);
-
+      
       return res.status(200).json({
         success: true,
         exists: result.exists,
@@ -97,23 +97,23 @@ module.exports = {
     }
   },
   async findByStatus(req, res, next) {
+
     try {
-      const status = req.params.status;
-      const limit = parseInt(req.query.limit) || 10; // Número de resultados por página
-      const page = parseInt(req.query.page) || 1; // Página actual
-      const offset = (page - 1) * limit; // Cálculo del desplazamiento
+        const status = req.params.status;
+        let data = await Order.findByStatus(status);
 
-      let data = await Order.findByStatus(status, limit, offset);
-
-      console.log("Order: ", data);
-      return res.status(200).json(data);
-    } catch (error) {
-      console.log(`Error ${error}`);
-      return res.status(501).json({
-        message: "Hubo un error al tratar de obtener las ordenes por estado",
-        error: error,
-        success: false,
-      });
+        console.log('Order: ', data);
+        return res.status(201).json(data);
+    } 
+    catch (error) {
+        console.log(`Error ${error}`);    
+        return res.status(501).json({
+            message: 'Hubo un error al tratar de obtener las ordenes por estado',
+            error: error,
+            success: false
+        })
     }
-  },
+
+},
+  
 };
