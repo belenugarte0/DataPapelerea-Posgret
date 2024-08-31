@@ -78,4 +78,38 @@ module.exports = {
       });
     }
   },
+  async updatePlanning(req, res, next) {
+    try {
+      const id = req.body.id;
+      await Order.updatePlanning(id);
+      return res.status(201).json({
+        success: true,
+        message: "Las órdenes se actualizaron correctamente a 'Despacho'",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando las órdenes",
+        error: error.message,
+      });
+    }
+  },
+  async updatePlanning(req, res, next) {
+    try {
+      const { id, status } = req.body;
+      await Order.updatePlanning(id, status);
+      return res.status(201).json({
+        success: true,
+        message: "Las órdenes se actualizaron correctamente",
+      });
+    } catch (error) {
+      console.log(`Error ${error}`);
+      return res.status(501).json({
+        success: false,
+        message: "Hubo un error actualizando las órdenes",
+        error: error,
+      });
+    }
+  },
 };
