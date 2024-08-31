@@ -78,6 +78,32 @@ module.exports = {
       });
     }
   },
+  async validateCodigo(req, res, next) {
+    try {
+      const codigo = req.params.codigo;
+      const exists = await Order.validateCod(codigo);
+
+      if (exists) {
+        return res.status(200).json({
+          success: true,
+          message: "El código ya existe.",
+        });
+      } else {
+        return res.status(200).json({
+          success: true,
+          message: "El código es válido y no está en uso.",
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Hubo un error al validar el código",
+        error: error.message,
+      });
+    }
+  },
+
   async updatePlanning(req, res, next) {
     try {
       const id = req.body.id;
