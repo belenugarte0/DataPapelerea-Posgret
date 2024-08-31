@@ -95,10 +95,11 @@ module.exports = {
       });
     }
   },
+
   async updatePlanning(req, res, next) {
     try {
-      const { id, status } = req.body;
-      await Order.updatePlanning(id, status);
+      const { id } = req.body;
+      await Order.updatePlanning(id);
       return res.status(201).json({
         success: true,
         message: "Las órdenes se actualizaron correctamente",
