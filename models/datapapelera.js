@@ -1,3 +1,4 @@
+
 const db = require("../config/config");
 
 const Order = {};
@@ -54,6 +55,46 @@ Order.getZonas = () => {
 
   return db.manyOrNone(sql);
 };
+
+Order.validateCodigo  = (codigo) => {
+  const sql = `
+    SELECT 
+      COUNT(*) > 0 AS exists 
+    FROM 
+      pedidos 
+    WHERE 
+      Codigo = $1;
+  `;
+
+  return db.oneOrNone(sql, codigo);
+};
+
+
+Order.findByStatus = (status) => {
+  const sql = `
+   SELECT
+        id,
+        Codigo,
+        Cliente,
+        Producto,
+        Fecha_de_entrega,
+        Cantidad_Requerida,
+        Colores,
+        Largo_Interno,
+        Ancho_Interno,
+        Calidad,
+        Tipo_de_Caja,
+        estado
+    FROM
+        pedidos
+    WHERE  estado = $1
+    ORDER BY
+        id
+    `;
+
+  return db.manyOrNone(sql, status);
+};
+
 Order.updatePlanning = (id) => {
   const sql = `
   UPDATE
