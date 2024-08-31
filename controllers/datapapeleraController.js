@@ -98,18 +98,18 @@ module.exports = {
 
   async updatePlanning(req, res, next) {
     try {
-      const { id } = req.body;
+      const id = req.params.id.split(",").map(Number);
       await Order.updatePlanning(id);
       return res.status(201).json({
         success: true,
-        message: "Las órdenes se actualizaron correctamente",
+        message: "Las órdenes se actualizaron correctamente a 'Despacho'",
       });
     } catch (error) {
       console.log(`Error ${error}`);
       return res.status(501).json({
         success: false,
         message: "Hubo un error actualizando las órdenes",
-        error: error,
+        error: error.message,
       });
     }
   },
