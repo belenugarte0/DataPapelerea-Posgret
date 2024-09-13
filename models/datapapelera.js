@@ -65,7 +65,7 @@ Order.validateCodigo = (codigo) => {
     FROM 
       orders 
     WHERE 
-      Codigo = $1;
+      client_cod = $1;
   `;
 
   return db.oneOrNone(sql, codigo);
@@ -73,22 +73,25 @@ Order.validateCodigo = (codigo) => {
 
 Order.findByStatus = (status) => {
   const sql = `
-   SELECT
-        id,
-        Codigo,
-        Cliente,
-        Producto,
-        Fecha_de_entrega,
-        Cantidad_Requerida,
-        Colores,
-        Largo_Interno,
-        Ancho_Interno,
-        Calidad,
-        Tipo_de_Caja,
-        status
+    SELECT id,
+      order_cod,
+      client_cod,
+      client,
+      product,
+      quantity,
+      production_date,
+      delivery_date,
+      colors, width,
+      length,
+      height,
+      quality,
+      box_type,
+      zone,
+      coordinates,
+      status
     FROM
         orders
-    WHERE  status = $1
+    WHERE status LIKE '%' || $1 || '%'
     ORDER BY
         id
     `;

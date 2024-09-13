@@ -1,7 +1,17 @@
 -- DROP FUNCTION IF EXISTS listar_pedidos_dia(p_zonas text[]);
 
 CREATE OR REPLACE FUNCTION public.listar_pedidos_dia(p_zonas text[])
-    RETURNS TABLE(id integer, codigo text, producto text, cliente text, largo_interno text, ancho_interno text, zona text, coordenadas text, fecha_de_entrega date) 
+    RETURNS TABLE(id integer,
+				  order_cod text,
+				  client_cod text,
+				  client text, 
+				  product text, 
+				  quantity text, 
+				  width text, 
+				  length text, 
+				  zone text, 
+				  coordinates text, 
+				  delivery_date date) 
     LANGUAGE 'plpgsql'
     COST 100
     VOLATILE PARALLEL UNSAFE
@@ -18,39 +28,43 @@ BEGIN
     pedidos_ordenados AS (
         SELECT 
             p.id,
-            p.codigo::text,
-            p.producto::text,
-            p.cliente::text,
-            p.largo_interno::text,
-            p.ancho_interno::text,
-            p.zona::text,
-            p.coordenadas::text,
-            TO_DATE(p.fecha_de_entrega, 'DD/MM/YYYY') AS fecha_de_entrega,
-            ROW_NUMBER() OVER(PARTITION BY p.codigo ORDER BY TO_DATE(p.fecha_de_entrega, 'DD/MM/YYYY') DESC) AS fila,
+            p.order_cod::text,
+            p.client_cod::text,
+            p.client::text,
+            p.product::text,
+            p.quantity::text,
+            p.width::text,
+            p.length::text,
+            p.zone::text,
+            p.coordinates::text,
+            p.delivery_date::date,
+            ROW_NUMBER() OVER(PARTITION BY p.client_cod ORDER BY p.delivery_date DESC) AS fila,
             COALESCE(z.orden_zona, 999) AS orden_zona
         FROM 
-            public.pedidos p
-        LEFT JOIN zonas_ordenadas z ON p.zona ILIKE '%' || z.zona_filtro || '%'
+            public.orders p
+        LEFT JOIN zonas_ordenadas z ON p.zone ILIKE '%' || z.zona_filtro || '%'
         WHERE 
-            p.estado = 'Despacho'
+            p.status = 'Despacho'
             AND (p_zonas IS NULL OR z.zona_filtro IS NOT NULL)
     )
     SELECT 
-        po.id,
-        po.codigo, 
-        po.producto, 
-        po.cliente,
-        po.largo_interno,
-        po.ancho_interno,
-        po.zona,
-        po.coordenadas,
-        po.fecha_de_entrega
+		po.id,
+        po.order_cod, 
+        po.client_cod, 
+		po.product, 
+		po.quantity, 
+        po.client,
+        po.width,
+        po.length,
+        po.zone,
+        po.coordinates,
+        po.delivery_date
     FROM 
         pedidos_ordenados po
     WHERE 
         po.fila = 1
     ORDER BY 
         po.orden_zona, 
-        po.fecha_de_entrega DESC;
+        po.delivery_date DESC;
 END;
 $BODY$;

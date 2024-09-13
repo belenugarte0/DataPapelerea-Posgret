@@ -2,7 +2,7 @@
 
 CREATE OR REPLACE FUNCTION listar_zonas()
 RETURNS TABLE(
-    zona TEXT,
+    zone TEXT,
     total BIGINT
 ) AS $$
 BEGIN
@@ -10,17 +10,17 @@ BEGIN
     SELECT 
         UPPER(TRIM(
             CASE 
-                WHEN POSITION(',' IN p.zona) > 0 THEN SUBSTRING(p.zona FROM 1 FOR POSITION(',' IN p.zona) - 1)
-                ELSE p.zona
+                WHEN POSITION(',' IN p.zone) > 0 THEN SUBSTRING(p.zone FROM 1 FOR POSITION(',' IN p.zone) - 1)
+                ELSE p.zone
             END
-        )) AS zona,
+        )) AS zone,
         COUNT(*) AS total
-    FROM public.pedidos p
-    WHERE p.zona IS NOT NULL
+    FROM public.orders p
+    WHERE p.zone IS NOT NULL
     GROUP BY UPPER(TRIM(
             CASE 
-                WHEN POSITION(',' IN p.zona) > 0 THEN SUBSTRING(p.zona FROM 1 FOR POSITION(',' IN p.zona) - 1)
-                ELSE p.zona
+                WHEN POSITION(',' IN p.zone) > 0 THEN SUBSTRING(p.zone FROM 1 FOR POSITION(',' IN p.zone) - 1)
+                ELSE p.zone
             END
         ))
     ORDER BY total DESC;
