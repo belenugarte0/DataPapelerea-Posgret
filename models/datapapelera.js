@@ -35,7 +35,7 @@ Order.update = (order) => {
   UPDATE
   orders
   SET
-  estado = $2
+  status = $2
   WHERE
   id = $1
   `;
@@ -85,10 +85,10 @@ Order.findByStatus = (status) => {
         Ancho_Interno,
         Calidad,
         Tipo_de_Caja,
-        estado
+        status
     FROM
         orders
-    WHERE  estado = $1
+    WHERE  status = $1
     ORDER BY
         id
     `;
@@ -101,7 +101,7 @@ Order.updatePlanning = (id) => {
   UPDATE
   orders
   SET
-  estado = 'Despacho'
+  status = 'Despacho'
   WHERE
   id = ANY($1::int[])
   `;
