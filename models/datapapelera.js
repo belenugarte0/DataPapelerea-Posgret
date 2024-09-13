@@ -1,26 +1,28 @@
-
 const db = require("../config/config");
 
 const Order = {};
 
 Order.getAll = (status) => {
   const sql = `
-    SELECT
-        id,
-        Codigo,
-        Cliente,
-        Producto,
-        Fecha_de_entrega,
-        Cantidad_Requerida,
-        Colores,
-        Largo_Interno,
-        Ancho_Interno,
-        Calidad,
-        Tipo_de_Caja,
-        estado
+   SELECT id,
+      order_cod,
+      client_cod,
+      client,
+      product,
+      quantity,
+      production_date,
+      delivery_date,
+      colors, width,
+      length,
+      height,
+      quality,
+      box_type,
+      zone,
+      coordinates,
+      status
     FROM
-        pedidos
-    WHERE  estado = $1
+        orders
+    WHERE status LIKE '%' || $1 || '%'
     ORDER BY
         id
   `;
@@ -31,7 +33,7 @@ Order.getAll = (status) => {
 Order.update = (order) => {
   const sql = `
   UPDATE
-  pedidos
+  orders
   SET
   estado = $2
   WHERE
@@ -56,19 +58,18 @@ Order.getZonas = () => {
   return db.manyOrNone(sql);
 };
 
-Order.validateCodigo  = (codigo) => {
+Order.validateCodigo = (codigo) => {
   const sql = `
     SELECT 
       COUNT(*) > 0 AS exists 
     FROM 
-      pedidos 
+      orders 
     WHERE 
       Codigo = $1;
   `;
 
   return db.oneOrNone(sql, codigo);
 };
-
 
 Order.findByStatus = (status) => {
   const sql = `
@@ -86,7 +87,7 @@ Order.findByStatus = (status) => {
         Tipo_de_Caja,
         estado
     FROM
-        pedidos
+        orders
     WHERE  estado = $1
     ORDER BY
         id
@@ -98,7 +99,7 @@ Order.findByStatus = (status) => {
 Order.updatePlanning = (id) => {
   const sql = `
   UPDATE
-  pedidos
+  orders
   SET
   estado = 'Despacho'
   WHERE
