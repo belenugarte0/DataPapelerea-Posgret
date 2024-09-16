@@ -21,9 +21,9 @@ module.exports = {
     }
   },
 
-  async TipoA(req, res, next) {
+  async getTipoa(req, res, next) {
     try {
-      const data = await Order.TipoA();
+      const data = await Order.getTipoa();
 
       const response = {
         orders: data,
