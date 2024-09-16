@@ -1,0 +1,13 @@
+-- DROP FUNCTION IF EXISTS tipoa();
+
+CREATE OR REPLACE FUNCTION TipoA()
+RETURNS SETOF orders AS $$
+BEGIN
+    RETURN QUERY
+    SELECT *
+    FROM orders
+    WHERE quality ILIKE 'A%'
+    AND status ILIKE 'Recibido'
+    AND product NOT ILIKE 'torta%';
+END;
+$$ LANGUAGE plpgsql;

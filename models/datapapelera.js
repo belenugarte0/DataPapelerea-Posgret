@@ -110,4 +110,15 @@ Order.updatePlanning = (id) => {
   `;
   return db.none(sql, [id]);
 };
+
+Order.getTipoa = () => {
+  const sql = `
+    SELECT *
+    FROM orders
+    WHERE quality ILIKE 'A%'
+    AND status ILIKE 'Recibido'
+    AND product NOT ILIKE 'torta%'`;
+  return db.manyOrNone(sql);
+};
+
 module.exports = Order;
