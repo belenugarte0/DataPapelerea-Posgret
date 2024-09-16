@@ -25,4 +25,6 @@ module.exports = (app) => {
 
   app.get("/api/datapapelera/getTipoa", DatapapeleraController.getTipoa);
 
+  app.get("/api/datapapelera/getTipoc", DatapapeleraController.getTipoc);
+
 };

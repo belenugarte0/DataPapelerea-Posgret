@@ -119,4 +119,12 @@ Order.getTipoa = () => {
   return db.manyOrNone(sql);
 };
 
+Order.getTipoc = () => {
+  const sql = `
+  select * from getTipoc()
+ 
+  `;
+  return db.manyOrNone(sql);
+};
+
 module.exports = Order;

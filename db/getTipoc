@@ -1,0 +1,12 @@
+-- DROP FUNCTION IF EXISTS tipoa();
+
+
+-- DROP FUNCTION IF EXISTS getTipoc();
+CREATE OR REPLACE FUNCTION getTipoc()
+RETURNS SETOF orders AS $$
+BEGIN
+    RETURN QUERY
+    SELECT *
+    FROM orders
+    WHERE quality ILIKE 'C%'
+    AND status ILIKE 'Recibido'
